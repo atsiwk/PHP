@@ -16,7 +16,7 @@ $firstDayOfWeek = date('w', mktime(0, 0, 0, $month,1 ,$year)); //１日の曜日
 
 //月末日を取得
 $lastDay = date('t'); //date('t')で月末を取得
-$lastDayOfWeek = date('w', mktime(0, 0, 0, $month,$lastDay ,$year)); //１日の曜日 date('w')で曜日を数字で取得
+$lastDayOfWeek = date('w', mktime(0, 0, 0, $month,$lastDay ,$year)); //月末の曜日を数字で取得
 
 $calendar = array(); //日、曜日を格納する変数を定義
 
@@ -24,6 +24,8 @@ for ($i = 1; $i <= $lastDay; $i++) {
     $weekInt = date('w', mktime(0, 0, 0, $month ,$i ,$year)); //date('w')で曜日を数字で取得
     $calendar[] = $i; //１日～月末までの日を格納
 }
+
+//前月、翌月を定義
 $target_date = $year.'-'.$month.'-1';
 $prevYear = date('Y', strtotime($target_date." -1 month"));
 $prevMonth = date('n', strtotime($target_date." -1 month"));
@@ -70,12 +72,12 @@ table  {
 
     <table>
         <tr>
-            <th colspan="7"><?php echo $year.'年'.$month.'月' ?></th>
+            <th colspan="7"><?php echo $year.'年'.$month.'月' ?></th> //年月を表示
         </tr>
 
         <tr>
         <?php
-        foreach ($weekday as $youbi) {
+        foreach ($weekday as $youbi) { //日～土を表示
            echo '<th>'.$youbi.'</th>';
         }
         ?>
@@ -83,7 +85,7 @@ table  {
 
         <tr>
         <?php
-        for ($b = 1; $b <= $firstDayOfWeek; $b++) {
+        for ($b = 1; $b <= $firstDayOfWeek; $b++) { //１行目に空白セルを追加
             echo '<td></td>';
         }
 
@@ -95,7 +97,7 @@ table  {
             }
         }
 
-        for ($b = 1; $b <= 6 -$lastDayOfWeek; $b++) {
+        for ($b = 1; $b <= 6 -$lastDayOfWeek; $b++) {　//最終行に空白セルを追加
             echo '<td></td>';
         }
         ?>
